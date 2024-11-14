@@ -1,0 +1,15 @@
+.iconButton {
+  color: rgb(4, 36, 39) !important;
+  padding: 0.1rem 0.3rem;
+  transition: all 0.5s;
+}
+.icon {
+  background-color: transparent !important;
+  color: #007c85;
+  transition: all 0.5s;
+}
+.iconButton:hover .icon,
+.iconButton:hover {
+  background-color: #c0bebebe;
+  color: aliceblue;
+}

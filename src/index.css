@@ -1,13 +1,160 @@
-body {
+:root{
+  --main-color:#007c85;
+  --sub-color: #f3f3f3be;
+}
+.main-color{
+  color: var(--main-color);
+}
+.bg-main{
+  background-color:#007c85 ;
+}
+.sub-color{
+  color: var(--sub-color);
+}
+.bg-sub{
+  background-color: var(--sub-color);
+}
+::-webkit-scrollbar {
+  width: 0.8rem;
+  background: var(--main-color);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--main-color);
+}
+::-webkit-scrollbar-thumb {
+  background-color:  var(--sub-color);
+}
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+}
+ul {
+  list-style-type: none;
+}
+input {
+  outline-style: none;
+}
+button{
+  cursor: pointer !important;
+}
+/*
+ background-color: aliceblue;
+   color: #007c85;
+*/
+.main-button ,.total-price {
+  margin-top: 0.5rem;
+  margin-bottom: 0.6rem;
+  padding: 0.4rem 2rem;
+  border-radius: 1.3rem;
+  border: 0;
+  transition: all 1s;
+  font-weight: 500;
+  margin-left: 0.5rem;
+  margin-right: 0.4rem;
+}
+.main-button:hover {  
+  color: var(--sub-color);
+  background-color: #0c535f;
+}
+.coverLoginAndRegister {
+  height: 100vh;
+  background-color: rgb(4, 36, 39) !important;
+}
+.coverFromLoginAndRegister {
+  background: linear-gradient(#007c85, #141818);
+  min-height: 35vh;
+  width: 25rem;
+}
+.inputsFromLoginAndRegister{
+  display: block;
+  width: 20rem;
+  background-color: transparent;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.2rem;
+  margin-top: 1.5rem;
+  border: 0;
+  border-bottom:1px solid var(--sub-color) ;
+  outline: 0;
+  color: var(--sub-color);
+}
+.inputsFromLoginAndRegister::placeholder{
+  color: var(--sub-color);
+}
+.errorLoginAndRegister {
+  color: rgb(233, 186, 180);
+  font-size: 0.8rem;
+}
+.btn-checkOut,
+.btnClose,
+.btnSubmitOrder,.total-price {
+  background-color:  var(--sub-color);
+}
+.btn-checkOut:hover,
+.btnClose:hover {
+  background-color: #c4c1c1be;
+}
+.cart,
+.check-out{
+  background-color: #034549 !important;
+  border: 0 #222 solid;
+  list-style-type: none !important;
+  width:47rem;
+  outline-style: none !important;
+  min-width: 5rem;
+  height: 17rem;
+  border-radius: 0.4rem;
+  padding: 1rem;
+  overflow-y: auto;
+}
+.check-out {
+  width: 40rem;
+  height:29rem;
+}
+.total-price{
+  background-color: transparent;
+  color:  var(--sub-color);
+}
+.hide {
+  display: none;
+}
+.paragraph{
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+   overflow: hidden;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+.error{
+  width:100%;
+  height:100vh;
+  color: rgb(17, 132, 161);
 }
+
+.errorText{
+  background-color:  rgb(228, 243, 253);
+  color: #6f8a8b  ;
+  border-radius: 1rem;
+  height: 15rem; 
+}
+
+product {
+  flex-wrap: wrap;
+}
+@media screen and (max-width: 557px) {
+  :root {
+    font-size: 12px;
+  }
+}
+@media screen and (min-width: 558px) and (max-width: 779px) {
+  :root {
+    size: 10px;
+  }
+}
+@media screen and (min-width: 780px) and (max-width: 999px) {
+  :root {
+    size: 14px;
+  }
+}
+

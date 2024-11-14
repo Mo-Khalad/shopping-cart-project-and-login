@@ -1,0 +1,9 @@
+.inputCheckOut {
+  height: 2rem;
+}
+.label {
+  display: block !important;
+}
+.btnSubmitOrder:hover {
+  background-color: var(--main-color);
+}

@@ -1,0 +1,16 @@
+.products{
+    box-shadow:1px 1px 3px #007c85;
+    margin:2rem;
+    margin-top: 5rem;
+    width: 18rem;
+    min-height: 20rem;
+}
+.btnBuy ,.btnDetails{
+    background-color: rgb(4, 36, 39);
+    margin-left: 1rem;
+    color:  #7fcacf;
+}
+.imageProduct:hover{
+    transform: scale(1.1 , 1.1);
+}
+
