@@ -1,12 +1,14 @@
 import { createContext } from "react";
-
 export const DisplayContext = createContext({
-    message:'',
-    handleHideLogin:()=>{},
-    handleShowLogin:()=>{},
-    showLogin:'',
+    handlePageShow:()=>{},
+    pageShow:'',
     hideError:()=>{},
     showError:()=>{},
-    errors:'',
+    error:'',
+    getProductId:()=>{},
+    productId:'',
+    getMessage:()=>{},
+    message:'',
+    handleModalShow:()=>{},
+    modalShow:''
 })
-

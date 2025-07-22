@@ -1,43 +1,45 @@
 import React from "react";
 import { useState } from "react";
-import { DisplayContext } from "./DisplayContext";
+import { DisplayContext } from "./DisplayContext.js";
 
 const DisplayContextProvider = ({ children }) => {
-  const [showLogin, setShowLogin] = useState(false);
-  const [messageApi, setMessageApi] = useState("");
-  //const [messageLogin, setMessageLogin] = useState(false);
-  const [errors, setError] = useState(true);
-  const handleShowLogin = () => {
-    setShowLogin(true);
+  const [pageShow, setPageShow] = useState("login");
+  const [modalShow, setModalShow] = useState("");
+
+  const [error, setError] = useState(true);
+  const [productId, setProductId] = useState("");
+ // const [message , setMessage]=useState('')
+  const getProductId = (id) => {
+    setProductId(id);
+  };
+  const handleModalShow =(modal)=>{
+    setModalShow(modal)
+  }
+  const handlePageShow = (page) => {
+    setPageShow(page);
     showError();
   };
-  const handleHideLogin = () => {
-    setShowLogin(false);
-    showError();
-  };
-  const getMessageApi = (message) => {
-    setMessageApi(message);
-  };
-  /*
-    const getMessageLogin = () => {
-      setMessageLogin();
-    };*/
   const showError = () => {
     setError(true);
   };
   const hideError = () => {
     setError(false);
   };
-
+  /*
+  const getMessage=(mess)=>{
+    setMessage(mess)
+  }
+    */
   const DisplayCrx = {
-    message: messageApi,
-    getMessageApi,
-    handleHideLogin,
-    handleShowLogin,
-    showLogin,
+    handlePageShow,
+    pageShow,
     hideError,
     showError,
-    errors: errors,
+    error,
+    getProductId,
+    productId,
+    handleModalShow,
+    modalShow
   };
   return (
     <DisplayContext.Provider value={DisplayCrx}>

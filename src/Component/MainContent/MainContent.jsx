@@ -1,29 +1,25 @@
 import React, { useContext } from "react";
 import Style from "./MainContent.module.css";
-//import imgMeal from "../../images/img-meal.jpg";
 import { CartContext } from "../../Store/CartContext.js";
 import Button from "../Ui/Button.jsx";
 import { useHttp } from "../../Hook/usehttp.js";
 import Error from "../Error/Error.jsx";
-import { DetailsProductContext } from "../../Store/DetailsProductContext.js";
 import { currencyFormatter } from "../../Logic/logic.js";
-const requestConfig = {};
+import { DisplayContext } from "../../Store/DisplayContext.js";
 const MainContent = () => {
   const { addProduct } = useContext(CartContext);
-  const { getProductId, handleShowDetailsProduct } = useContext(
-    DetailsProductContext
-  );
-  const { data, isLoading, error } = useHttp(
-    "https://fakestoreapi.com/products",
-    "Get",
-    requestConfig,
-    []
-  );
+  const DisplayCrx = useContext(DisplayContext) ;
   
-  const handleClickOnButtonDetails = (product, show) => {
-    getProductId(product);
-    handleShowDetailsProduct(show);
+  const { data, isLoading , error } = useHttp(
+    "https://fakestoreapi.com/products",  "Get" , []
+  )
+  const handleClickOnBtnDetails = (product, show) => {
+    DisplayCrx.getProductId(product);
+    DisplayCrx.handlePageShow(show);
   };
+
+  console.log(data);
+  
   return (
     <>
       {isLoading ? (
@@ -50,14 +46,17 @@ const MainContent = () => {
                     <h4>{currencyFormatter.format(product.price)}</h4>
                     <p className="paragraph">{product.title}</p>
                     <Button
-                      className={`sub-color bg-main`}
-                      onClick={() => addProduct(product)}
+                      className={`${Style.btnBuy} text-white`}
+                      onClick={() => {
+                        addProduct(product)
+                      } }
                     >
                       buy
                     </Button>
                     <Button
                       className={Style.btnDetails}
-                      onClick={() => handleClickOnButtonDetails(product, true)}
+                      onClick={() => handleClickOnBtnDetails(product , "detailsProduct")
+                      }
                     >
                       details
                     </Button>

@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { CartContext } from "./CartContext";
+import { CartContext } from "./CartContext.js";
 
 const handleProductReducer = (state, action) => {
   if (action.type === "add-item") {
@@ -18,8 +18,7 @@ const handleProductReducer = (state, action) => {
     return { ...state, items: updateItems };
   }
   if (action.type === "remove-item") {
-    const updateItems = [...state.items];
-
+    let updateItems = [...state.items]; 
     const existingCartItemIndex = state.items.findIndex(
       (item) => item.id === action.id
     );
@@ -34,11 +33,17 @@ const handleProductReducer = (state, action) => {
       };
       updateItems[existingCartItemIndex] = updateItem;
     }
+    
     return { ...state, items: updateItems };
+
   }
-};
+  if(action.type ==="remove-all"){
+      return { ...state, items: [] };
+  };
+  }
+
 const CartContextProvider = ({ children }) => {
-  const [cart, dispatchCartAction] = useReducer(handleProductReducer, {
+  const [cart , dispatchCartAction] = useReducer(handleProductReducer, {
     items: [],
   });
   const addProduct = (item) => {
@@ -53,6 +58,11 @@ const CartContextProvider = ({ children }) => {
       id: id,
     });
   };
+const removeAll =(id)=>{
+  dispatchCartAction({
+    type: "remove-all"
+  });
+}
   return (
     <>
       <CartContext.Provider
@@ -60,6 +70,7 @@ const CartContextProvider = ({ children }) => {
           item: cart.items,
           addProduct,
           removeProducts,
+          removeAll ,
         }}
       >
         {children}

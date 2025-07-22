@@ -3,6 +3,5 @@ export const CartContext =createContext({
    item:[] ,
    addProduct:()=>{} ,
    removeProducts:()=>{}, 
+   removeAll:()=>{}
 })
-
- 

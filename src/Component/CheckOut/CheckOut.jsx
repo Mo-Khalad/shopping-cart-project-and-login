@@ -1,18 +1,19 @@
 import Modal from "../Ui/Modal.jsx";
 import React, { useContext } from "react";
-import userProgressContext from "../../Store/UserProgressContext.js";
 import Button from "../Ui/Button.jsx";
 import Inputs from "../Ui/Inputs.jsx";
 import { CartContext } from "../../Store/CartContext.js";
 import Label from "../Ui/Label.jsx";
 import Style from "./CheckOut.module.css";
 import { totalPriceProducts } from "../../Logic/logic.js";
+import { DisplayContext } from "../../Store/DisplayContext.js";
 const CheckOut = () => {
-  const { progress , hideCheckOut } = useContext(userProgressContext);
+  const DisplayCrx = useContext(DisplayContext);
+  
   const { item } = useContext(CartContext);
   return (
     <> 
-      <Modal className="check-out" open={progress === "checkOut"}>
+      <Modal className="check-out" open={ DisplayCrx.pageShow === "checkOut"}>
         <h4 className="text-center sub-color my-2 fs-3">CheckOut</h4>
         <h3 className="fs-6 total-price position-absolute start-0 bottom-0">
           TotalPrice : $  { totalPriceProducts(item)}
@@ -65,14 +66,14 @@ const CheckOut = () => {
             <Button
               className={`${Style.btnSubmitOrder} main-color rounded-1 px-4`}
               type="button"
-              onClick={() => hideCheckOut()}
+              onClick={() => DisplayCrx.handlePageShow('')}
             >
               close
             </Button>
             <Button
               className={`${Style.btnSubmitOrder} main-color rounded-1 px-4`}
               type="button"
-              onClick={() => hideCheckOut()}
+              onClick={() => DisplayCrx.handlePageShow('')}
             >
               Submit Order
             </Button>

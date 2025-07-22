@@ -1,6 +1,7 @@
 :root{
   --main-color:#007c85;
   --sub-color: #f3f3f3be;
+  --transition: all 0.7s;
 }
 .main-color{
   color: var(--main-color);
@@ -38,17 +39,13 @@ input {
 button{
   cursor: pointer !important;
 }
-/*
- background-color: aliceblue;
-   color: #007c85;
-*/
 .main-button ,.total-price {
   margin-top: 0.5rem;
   margin-bottom: 0.6rem;
   padding: 0.4rem 2rem;
   border-radius: 1.3rem;
   border: 0;
-  transition: all 1s;
+  transition: var(--transition);
   font-weight: 500;
   margin-left: 0.5rem;
   margin-right: 0.4rem;
@@ -59,12 +56,25 @@ button{
 }
 .coverLoginAndRegister {
   height: 100vh;
-  background-color: rgb(4, 36, 39) !important;
+  background-image: url(./images/pexels-jplenio-1103970.jpg) !important;
+  background-size:cover;
+}
+.cover{
+  background-color: #585a5a56;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 99999;
 }
 .coverFromLoginAndRegister {
-  background: linear-gradient(#007c85, #141818);
+  background: var(--sub-color);
   min-height: 35vh;
   width: 25rem;
+  position: relative;
+  z-index: 999999;
+}
+.text-login{    
+  font-family:'Times New Roman', Times, serif;
 }
 .inputsFromLoginAndRegister{
   display: block;
@@ -72,17 +82,17 @@ button{
   background-color: transparent;
   padding: 0.3rem 0.6rem;
   border-radius: 0.2rem;
-  margin-top: 1.5rem;
+  margin-bottom: 1.2rem;
   border: 0;
-  border-bottom:1px solid var(--sub-color) ;
+  border-bottom: 1px solid var(--main-color) ;
   outline: 0;
-  color: var(--sub-color);
+  color: var(--main-color);
 }
 .inputsFromLoginAndRegister::placeholder{
-  color: var(--sub-color);
+  color:var(--main-color);
 }
 .errorLoginAndRegister {
-  color: rgb(233, 186, 180);
+  color: rgba(106, 133, 134, 0.575);
   font-size: 0.8rem;
 }
 .btn-checkOut,
@@ -124,24 +134,21 @@ button{
   -webkit-box-orient: vertical;
    overflow: hidden;
 }
-
-
-.error{
+.cursor{
+  cursor:pointer;
+}
+error{
   width:100%;
   height:100vh;
   color: rgb(17, 132, 161);
 }
-
-.errorText{
+errorText{
   background-color:  rgb(228, 243, 253);
   color: #6f8a8b  ;
   border-radius: 1rem;
   height: 15rem; 
 }
 
-product {
-  flex-wrap: wrap;
-}
 @media screen and (max-width: 557px) {
   :root {
     font-size: 12px;

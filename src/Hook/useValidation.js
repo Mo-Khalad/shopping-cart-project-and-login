@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useReducer } from "react";
 import { checkValidationFormInput } from "../Logic/logic.js";
 const inputFormReducer=(state, { type, payload })=>{
    return checkValidationFormInput(state, { type, payload })  
@@ -9,16 +9,12 @@ const didEditReducer=(state, { type, payload })=>{
 export const useValidation=(objectFormSign)=>{
     const [dataSign, inputFormDispatch] = useReducer(inputFormReducer, objectFormSign);
     const [errorSign, errorDispatch] = useReducer(didEditReducer, objectFormSign );
-    const [inputFormObject  , setInputFormObject ] = useState(objectFormSign)
-const handleSubmit = (event ) => {
-   event.preventDefault();  
+const handleSubmit = (event) => {
+      event.preventDefault();
       errorDispatch({
-      type: "submit",
+      type: "error",
       payload:true ,
-    });  
-    const formObjectData=new FormData(event.target);
-    const object = Object.fromEntries(formObjectData.entries())
-    setInputFormObject(object);
+    });   
 };
 const handleChange = (element, event) => {  
   inputFormDispatch({
@@ -36,14 +32,14 @@ const handleBlue = (element) => {
       type: element,
       payload: true,
     });
-};
+  }
+
 const signInObject={
-    handleSubmit ,
-    handleChange ,
-    handleBlue ,
-    dataSign,
-    errorSign,
-    inputFormObject
-}
-return { signInObject }
+  handleBlue ,
+  errorSign ,
+  handleChange ,
+  dataSign ,
+  handleSubmit
+ }
+return {signInObject}
 }

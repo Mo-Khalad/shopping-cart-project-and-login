@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import imgLogin from "../../images/img-Login.jpg";
 import Inputs from "../Ui/Inputs.jsx";
 import Button from "../Ui/Button.jsx";
-import { RejexContext } from "../../Store/RejexContext.js";
 import { useValidation } from "../../Hook/useValidation.js";
 import { useHttp } from "../../Hook/usehttp.js";
 import { DisplayContext } from "../../Store/DisplayContext.js";
@@ -10,38 +8,25 @@ const formInputs = {
   email: "",
   password: "",
 };
-const Login = ({ open }) => {
+const Login = ({ open, emailRegex, passwordRegex }) => {
   const [errorMessage, setErrorMessage] = useState(false);
-  const Rejex = useContext(RejexContext);
-  const DisplayCrx =useContext(DisplayContext)
-  const [method, setMethod] = useState("");
+  const DisplayCrx = useContext(DisplayContext);
   const { signInObject } = useValidation(formInputs);
-  const { data } = useHttp(
-    "https://movies-api.routemisr.com/signin",
-    method,
-    signInObject.inputFormObject
+  const { data, sendRequest } = useHttp(
+    "https://ecommerce.routemisr.com/api/v1/auth/signin",
+    "post"
   );
-  const emailRejex = Rejex.emailRejex.test(signInObject.dataSign.email);
-  const passwordRejex = Rejex.passwordRejex.test(
-    signInObject.dataSign.password
-  );
+console.log(data);
+
+  const email = emailRegex.test(signInObject.dataSign.email);
+  const password = passwordRegex.test(signInObject.dataSign.password);
+
   useEffect(() => {
-    if (
-      signInObject.dataSign.email !== "" &&
-      signInObject.dataSign.password !== ""
-    ) {
-      if (emailRejex && passwordRejex) {
-        setMethod("post");
-        setErrorMessage(true);
-      }
-    }
-  },[signInObject.inputFormObject])
-  useEffect(() => {
-     if (data?.message === "success") {
-      DisplayCrx.handleShowLogin();
-      DisplayCrx.hideError();
-      DisplayCrx.getMessageApi(data?.message);
-      setMethod(data?.message);
+    if (data?.message === "success") {
+      localStorage.setItem("UserData", JSON.stringify(data?.message));
+      DisplayCrx.handlePageShow(data?.message);
+      signInObject.dataSign.email = "";
+      signInObject.dataSign.password = "";
     }
   }, [data]);
 
@@ -49,16 +34,30 @@ const Login = ({ open }) => {
     setErrorMessage(false);
     signInObject.handleChange(value, event);
   };
+
+  const handleSubmits = (event) => {
+    signInObject.handleSubmit(event);
+    const formObjectData = new FormData(event.target);
+    const customerData = Object.fromEntries(formObjectData.entries());
+    email && password && sendRequest(customerData);
+    DisplayCrx.showError();
+    setErrorMessage(true);
+  };
+
   return (
     <>
       <div
         className={`coverLoginAndRegister ${open} flex-wrap w-100 justify-content-around
        align-items-center`}
       >
+        <div className="cover"></div>
         <form
-          onSubmit={signInObject.handleSubmit}
+          onSubmit={handleSubmits}
           className={`coverFromLoginAndRegister d-flex flex-wrap rounded justify-content-center align-items-center`}
         >
+          <h3 className="fs-2 p-2 text-center main-color w-100 fw-bolder text-login">
+            Login
+          </h3>
           <Inputs
             name="email"
             handleChange={(event) => handleChange("email", event)}
@@ -68,7 +67,7 @@ const Login = ({ open }) => {
             id="email"
             errorSign={signInObject.errorSign.email}
             error={"email is not valid add @.com"}
-            Rejex={Rejex.emailRejex}
+            Regex={emailRegex}
             className="inputsFromLoginAndRegister "
           />
           <Inputs
@@ -83,29 +82,28 @@ const Login = ({ open }) => {
               "It must be no less than 4 numbers and no more than 9 numbers"
             }
             errorSign={signInObject.errorSign.password}
-            Rejex={Rejex.passwordRejex}
+            Regex={passwordRegex}
           />
           {signInObject.messageLogin === "incorrect password" ||
-            (DisplayCrx.errorMessage && data?.message !== "success" && (
+            (errorMessage && data?.message !== "success" && (
               <h2 className="errorLoginAndRegister fs">{data?.message}</h2>
             ))}
-            
-          <Button className="main-color" onClick={DisplayCrx.showError}>
+
+          <Button className="sub-color bg-main" onClick={DisplayCrx.showError}>
             Login
           </Button>
-          <Button className="main-color"
+          <h5
             onClick={() => {
-              DisplayCrx.handleHideLogin();
+              DisplayCrx.handlePageShow("");
               DisplayCrx.hideError();
             }}
+            className="main-color fs-6 w-100 text-center cursor"
           >
-            Register
-          </Button>
+            Create a new account
+          </h5>
         </form>
-        <img src={imgLogin} alt="img-login" width={350} />
       </div>
     </>
   );
 };
-
 export default Login;

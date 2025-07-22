@@ -1,67 +1,45 @@
 import React, { useContext, useEffect, useState } from "react";
-import imgLogin from "../../images/img-Login.jpg";
+//import imgLogin from "../../images/img-Login.jpg";
 import Inputs from "../Ui/Inputs.jsx";
 import Button from "../Ui/Button.jsx";
-import { RejexContext } from "../../Store/RejexContext.js";
 import { useValidation } from "../../Hook/useValidation.js";
 import { useHttp } from "../../Hook/usehttp.js";
 import { DisplayContext } from "../../Store/DisplayContext.js";
-const Register = ({ open }) => {
-  const [method, setMethod] = useState("");
+const Register = ({ open , nameRegex , emailRegex , passwordRegex , ageRegex }) => {
   const [errorMessage, setErrorMessage] = useState(false);
-  const Rejex = useContext(RejexContext);
   const DisplayCrx =useContext(DisplayContext)
   const formInputs = {
-    first_name: "",
-    last_name: "",
+    name: "",
     email: "",
-    age: "",
     password: "",
+    rePassword: "",
+    phone: "",
   };
+  console.log(formInputs);
+  
   const { signInObject } = useValidation(formInputs);
-  const { data } = useHttp(
-    "https://movies-api.routemisr.com/signup",
-    method,
-    signInObject.inputFormObject
+  const { data ,sendRequest } = useHttp(
+    "https://ecommerce.routemisr.com/api/v1/auth/signup" ,
+    'post' ,
   );
 
-  const firstNameRejex = Rejex.nameRejex.test(signInObject.dataSign.first_name);
-  const lastNameRejex = Rejex.nameRejex.test(signInObject.dataSign.last_name);
-  const emailRejex = Rejex.emailRejex.test(signInObject.dataSign.email);
-  const ageRejex = Rejex.ageRejex.test(signInObject.dataSign.age);
-  const passwordRejex = Rejex.passwordRejex.test(
+  const name = nameRegex.test(signInObject.dataSign.name);
+  const rePassword = passwordRegex.test(signInObject.dataSign.rePassword);
+  const email = emailRegex.test(signInObject.dataSign.email);
+  const phone = ageRegex.test(signInObject.dataSign.phone);
+  const password = passwordRegex.test(
     signInObject.dataSign.password
   );
 
+
   useEffect(() => {
-    if (
-      signInObject.dataSign.first_name &&
-      signInObject.dataSign.last_name !== "" &&
-      signInObject.dataSign.email !== "" &&
-      signInObject.dataSign.age !== "" &&
-      signInObject.dataSign.password !== ""
-    ) {
-      if (
-        firstNameRejex &&
-        lastNameRejex &&
-        emailRejex &&
-        ageRejex &&
-        passwordRejex
-      ) {
-        setMethod("post");
-        setErrorMessage(true);
-      }
-    }
-  } ,[signInObject.inputFormObject])  
-   
- useEffect(()=>{ if (data?.message === "success") {
-  DisplayCrx.handleShowLogin();
-  DisplayCrx.hideError();
-      setMethod(data?.message);
-      signInObject.dataSign.first_name = "";
-      signInObject.dataSign.last_name = "";
+    
+    if (data?.message === "success") {
+      DisplayCrx.handlePageShow("login");
+      signInObject.dataSign.name = '' ;
+      signInObject.dataSign.rePassword = '' ;
       signInObject.dataSign.email = "";
-      signInObject.dataSign.age = "";
+      signInObject.dataSign.phone = "" ;
       signInObject.dataSign.password = "";
     }
   }, [data]);
@@ -70,39 +48,56 @@ const Register = ({ open }) => {
     setErrorMessage(false);
     signInObject.handleChange(value, event);
   };
+  const handleSubmit=(event)=>{
+    console.log(event);
+    
+    signInObject.handleSubmit(event);    
+    const formObjectData = new FormData(event.target);
+    const customerData = Object.fromEntries(formObjectData.entries());
+    
+    ( email && password && phone && name && rePassword ) && sendRequest(customerData);
+    DisplayCrx.showError();   
+    setErrorMessage(true)
+  }
+  
   return (
     <>
       <div
         className={`coverLoginAndRegister flex-wrap w-100 ${open} justify-content-around align-items-center  `}
       >
+       <div className="cover"></div>
+       
         <form
-          onSubmit={signInObject.handleSubmit}
+          onSubmit={handleSubmit}
           className={`coverFromLoginAndRegister d-flex flex-wrap rounded justify-content-center
           align-items-center`}
         >
+          <h3 className="fs-2 p-3 text-center main-color w-100 fw-bolder text-login">
+            Register
+          </h3>
           <Inputs
-            name="first_name"
-            handleChange={(event) => handleChange("first_name", event)}
+            name="name"
+            handleChange={(event) => handleChange("name", event)}
             type="text"
-            value={signInObject.dataSign.first_name}
-            id="first_name"
-            handleBlue={() => signInObject.handleBlue("first_name")}
-            errorSign={signInObject.errorSign.first_name}
+            value={signInObject.dataSign.name}
+            id="name"
+            handleBlue={() => signInObject.handleBlue("name")}
+            errorSign={signInObject.errorSign.name}
             error={"The name must start be at least three letters"}
-            Rejex={Rejex.nameRejex}
+            Regex={nameRegex}
             className="inputsFromLoginAndRegister"
           />
           <Inputs
             className="inputsFromLoginAndRegister"
-            name="last_name"
-            handleChange={(event) => handleChange("last_name", event)}
+            name="rePassword"
+            handleChange={(event) => handleChange("rePassword", event)}
             type="text"
-            value={signInObject.dataSign.last_name}
-            id="last_name"
-            handleBlue={() => signInObject.handleBlue("last_name")}
-            errorSign={signInObject.errorSign.last_name}
+            value={signInObject.dataSign.rePassword}
+            id="rePassword"
+            handleBlue={() => signInObject.handleBlue("rePassword")}
+            errorSign={signInObject.errorSign.rePassword}
             error={"The name must start be at least three letters"}
-            Rejex={Rejex.nameRejex}
+            Regex={passwordRegex}
           />
           <Inputs
             className="inputsFromLoginAndRegister"
@@ -114,19 +109,19 @@ const Register = ({ open }) => {
             id="email"
             errorSign={signInObject.errorSign.email}
             error={"email is not valid add @.com"}
-            Rejex={Rejex.emailRejex}
+            Regex={emailRegex}
           />
           <Inputs
             className="inputsFromLoginAndRegister"
-            name="age"
-            handleBlue={() => signInObject.handleBlue("age")}
-            handleChange={(event) => handleChange("age", event)}
-            type="number"
-            value={signInObject.dataSign.age}
-            id="age"
-            errorSign={signInObject.errorSign.age}
-            error={"must Age from 15 to 60"}
-            Rejex={Rejex.ageRejex}
+            name="phone"
+            handleBlue={() => signInObject.handleBlue("phone")}
+            handleChange={(event) => handleChange("phone", event)}
+            type="text"
+            value={signInObject.dataSign.phone}
+            id="phone"
+            errorSign={signInObject.errorSign.phone}
+            error={"must phone start 011 or 012 or 010"}
+            Regex={ageRegex}
           />
           <Inputs
             id="password"
@@ -136,28 +131,33 @@ const Register = ({ open }) => {
               handleChange("password", event);
             }}
             handleBlue={() => signInObject.handleBlue("password")}
-            type="password"
+            type="text"
             value={signInObject.dataSign.password}
             error={
-              "It must be no less than 4 numbers and no more than 9 numbers"
+              "It must be at least 4 characters long and begin with a capital letter"
             }
             errorSign={signInObject.errorSign.password}
-            Rejex={Rejex.passwordRejex}
+            Regex={passwordRegex}
           />
           {errorMessage && data?.message !== "success" && (
             <h2 className="errorLoginAndRegister"> {data?.message}</h2>
           )}
-          <Button className="main-color"
-            onClick={() => {
-              DisplayCrx.showError();
-            }}
-          >
-            Login
+          <Button className="sub-color bg-main">
+            register
           </Button>
         </form>
-        <img src={imgLogin} alt="img-login" width={350} />
       </div>
     </>
   );
 };
 export default Register;
+
+
+
+
+
+
+
+
+
+

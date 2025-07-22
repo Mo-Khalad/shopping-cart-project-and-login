@@ -1,7 +1,6 @@
 import Style from "./Navbar.module.css";
 import Button from "../../Ui/Button.jsx";
 import { useContext } from "react";
-//import { RejexContext } from "../../../Store/RejexContext.js";
 import { DisplayContext } from "../../../Store/DisplayContext.js";
 function Navbar({ open }) { 
     const DisplayCrx= useContext(DisplayContext)  
@@ -9,18 +8,18 @@ function Navbar({ open }) {
     <>
       <nav className={`${Style.navLinks} ${open} rounded-3 position-fixed end-0 top-0 pt-2`}>
         <Button
-          className={`${DisplayCrx.showLogin ? "bg-main sub-color" : `${Style.btnClickedStyle} main-color`}`}
+          className={`${DisplayCrx.pageShow ? "bg-main sub-color" : `${Style.btnClickedStyle} main-color`}`}
           onClick={()=>{
-            DisplayCrx.handleShowLogin()
+            DisplayCrx.handlePageShow("login")
             DisplayCrx.hideError()
           }}
         >
           Login
         </Button>
         <Button
-          className={`${!DisplayCrx.showLogin ? "bg-main sub-color" : `${Style.btnClickedStyle} main-color`}`}
+          className={`${!DisplayCrx.pageShow ? "bg-main sub-color" : `${Style.btnClickedStyle} main-color`}`}
           onClick={()=>{
-            DisplayCrx.handleHideLogin()
+            DisplayCrx.handlePageShow('')
             DisplayCrx.hideError()
           }
           }

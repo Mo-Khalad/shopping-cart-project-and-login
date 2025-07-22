@@ -1,12 +1,15 @@
 import React, { useContext } from "react";
-import { DetailsProductContext } from "../../Store/DetailsProductContext";
 import Button from "../Ui/Button.jsx";
 import { CartContext } from "../../Store/CartContext.js";
 import { currencyFormatter } from "../../Logic/logic.js";
+import { DisplayContext } from "../../Store/DisplayContext.js";
 const DetailsProducts = () => {
-  const { productId } = useContext(DetailsProductContext);
-  const { addProduct } = useContext(CartContext);
+  const {addProduct } = useContext(CartContext);
+  const {productId} =useContext(DisplayContext)
   const productPrice = currencyFormatter.format(productId.price);
+
+console.log(productId);
+
   return (
     <div className="pt-5 d-flex justify-content-around">
         <>

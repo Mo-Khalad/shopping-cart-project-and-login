@@ -1,11 +1,11 @@
 export const checkValidationFormInput=(state, { type, payload } )=>{   
 switch (type) {
-    case "first_name":
-      return { ...state, first_name: payload };
-    case "last_name":
-      return { ...state, last_name: payload };
-    case "age":
-      return { ...state, age: payload };
+    case "name":
+      return { ...state, name: payload };
+    case "rePassword":
+      return { ...state, rePassword: payload };
+    case "phone":
+      return { ...state, phone: payload };
     case "email":
       return { ...state, email: payload };
     case "password":
@@ -13,19 +13,19 @@ switch (type) {
     case "reset":
       return {
         ...state,
-        first_name: payload,
-        last_name: payload,
+        name: payload,
+        rePassword: payload,
         email: payload,
-        age: payload,
+        phone: payload,
         password: payload,
       };
-      case "submit":
+      case "error":
       return {        
         ...state,
-        first_name:payload, 
-        last_name: payload,
+        name:payload, 
+        rePassword: payload,
         email: payload,
-        age: payload,
+        phone: payload,
         password: payload,
       }; 
         default : return state
@@ -38,6 +38,7 @@ export const currencyFormatter = new Intl.NumberFormat('en-US' , {
 export const totalPriceProduct=(price , count)=>{
 return (price * count).toFixed(2)
 }
+
 export const totalPriceProducts=(item)=>{
  return item.reduce((total , item)=>{
     return ( total + (item.price * item.quantity))
