@@ -12,11 +12,10 @@ const Login = ({ open, emailRegex, passwordRegex }) => {
   const [errorMessage, setErrorMessage] = useState(false);
   const DisplayCrx = useContext(DisplayContext);
   const { signInObject } = useValidation(formInputs);
-  const { data, sendRequest } = useHttp(
+  const { data , sendRequest } = useHttp(
     "https://ecommerce.routemisr.com/api/v1/auth/signin",
     "post"
   );
-console.log(data);
 
   const email = emailRegex.test(signInObject.dataSign.email);
   const password = passwordRegex.test(signInObject.dataSign.password);

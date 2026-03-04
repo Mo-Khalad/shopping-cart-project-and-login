@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-//import imgLogin from "../../images/img-Login.jpg";
 import Inputs from "../Ui/Inputs.jsx";
 import Button from "../Ui/Button.jsx";
 import { useValidation } from "../../Hook/useValidation.js";
@@ -15,13 +14,13 @@ const Register = ({ open , nameRegex , emailRegex , passwordRegex , ageRegex }) 
     rePassword: "",
     phone: "",
   };
-  console.log(formInputs);
   
   const { signInObject } = useValidation(formInputs);
-  const { data ,sendRequest } = useHttp(
+  const { data , sendRequest } = useHttp(
     "https://ecommerce.routemisr.com/api/v1/auth/signup" ,
     'post' ,
   );
+console.log(formInputs);
 
   const name = nameRegex.test(signInObject.dataSign.name);
   const rePassword = passwordRegex.test(signInObject.dataSign.rePassword);
@@ -30,10 +29,11 @@ const Register = ({ open , nameRegex , emailRegex , passwordRegex , ageRegex }) 
   const password = passwordRegex.test(
     signInObject.dataSign.password
   );
-
+console.log(data)
 
   useEffect(() => {
-    
+    console.log(data?.message)
+
     if (data?.message === "success") {
       DisplayCrx.handlePageShow("login");
       signInObject.dataSign.name = '' ;
@@ -41,8 +41,9 @@ const Register = ({ open , nameRegex , emailRegex , passwordRegex , ageRegex }) 
       signInObject.dataSign.email = "";
       signInObject.dataSign.phone = "" ;
       signInObject.dataSign.password = "";
+
     }
-  }, [data]);
+  }, [data , signInObject.dataSign , DisplayCrx]);
 
   const handleChange = (value, event) => {
     setErrorMessage(false);
@@ -55,7 +56,7 @@ const Register = ({ open , nameRegex , emailRegex , passwordRegex , ageRegex }) 
     const formObjectData = new FormData(event.target);
     const customerData = Object.fromEntries(formObjectData.entries());
     
-    ( email && password && phone && name && rePassword ) && sendRequest(customerData);
+    ( email && password && phone && name && rePassword && ( data?.message!== 'success' )) && sendRequest(customerData);
     DisplayCrx.showError();   
     setErrorMessage(true)
   }

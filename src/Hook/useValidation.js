@@ -7,8 +7,8 @@ const didEditReducer=(state, { type, payload })=>{
     return checkValidationFormInput(state, { type, payload })  
 }
 export const useValidation=(objectFormSign)=>{
-    const [dataSign, inputFormDispatch] = useReducer(inputFormReducer, objectFormSign);
-    const [errorSign, errorDispatch] = useReducer(didEditReducer, objectFormSign );
+    const [dataSign, inputFormDispatch] = useReducer( inputFormReducer, objectFormSign);
+    const [errorSign, errorDispatch] = useReducer( didEditReducer, objectFormSign );
 const handleSubmit = (event) => {
       event.preventDefault();
       errorDispatch({

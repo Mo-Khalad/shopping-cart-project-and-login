@@ -19,7 +19,7 @@ function Navbar({ open }) {
         <Button
           className={`${!DisplayCrx.pageShow ? "bg-main sub-color" : `${Style.btnClickedStyle} main-color`}`}
           onClick={()=>{
-            DisplayCrx.handlePageShow('')
+            DisplayCrx.handlePageShow('Register')
             DisplayCrx.hideError()
           }
           }

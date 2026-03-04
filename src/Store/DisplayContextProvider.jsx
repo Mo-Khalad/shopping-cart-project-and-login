@@ -8,7 +8,6 @@ const DisplayContextProvider = ({ children }) => {
 
   const [error, setError] = useState(true);
   const [productId, setProductId] = useState("");
- // const [message , setMessage]=useState('')
   const getProductId = (id) => {
     setProductId(id);
   };
@@ -25,11 +24,7 @@ const DisplayContextProvider = ({ children }) => {
   const hideError = () => {
     setError(false);
   };
-  /*
-  const getMessage=(mess)=>{
-    setMessage(mess)
-  }
-    */
+  
   const DisplayCrx = {
     handlePageShow,
     pageShow,

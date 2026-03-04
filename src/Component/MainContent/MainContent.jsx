@@ -11,7 +11,7 @@ const MainContent = () => {
   const DisplayCrx = useContext(DisplayContext) ;
   
   const { data, isLoading , error } = useHttp(
-    "https://fakestoreapi.com/products",  "Get" , []
+    "https://fakestoreapi.com/products", "Get" , []
   )
   const handleClickOnBtnDetails = (product, show) => {
     DisplayCrx.getProductId(product);
