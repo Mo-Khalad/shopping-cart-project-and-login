@@ -14,7 +14,7 @@ import './App.css'
 //import { Contact } from "./pages/Contact/Contact.jsx";
 import { About } from "./pages/About/About.jsx";
 import Footer from "./Component/Footer/Footer.jsx";
-import { Contact } from "./pages/Contact/Contact.jsx";
+import { Home } from "./pages/Home/Home.jsx";
 
 const App = () => {
 /*
@@ -97,7 +97,8 @@ return ( <>
   </div>
 </nav>
 
-<Contact/>
+<Home/>
+
 <Footer/>
 </>
 )

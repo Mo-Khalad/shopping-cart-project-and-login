@@ -7,13 +7,18 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css'
 import DisplayContextProvider from './Store/DisplayContextProvider';
 import CartContextProvider from './Store/CartContextProvider';
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <React.StrictMode>
+
           <DisplayContextProvider>
             <CartContextProvider>         
                 <App/>
             </CartContextProvider>
-          </DisplayContextProvider>             
+          </DisplayContextProvider>   
+          </React.StrictMode>
+          
 );
 reportWebVitals();
-//      <React.StrictMode>

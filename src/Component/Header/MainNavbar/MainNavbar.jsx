@@ -38,7 +38,7 @@ const MainNavbar = () => {
           }}
         >
           Cart {totalCartItems}
-        </li>
+          </li>
 
         <li className={Style.btnLogOut} onClick={handleClickOnBtnLogOut}>
           logOut
