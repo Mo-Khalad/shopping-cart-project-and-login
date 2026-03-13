@@ -10,7 +10,6 @@ export const Home = () => {
   return (
     <>
       <Slider />
-
       <div className="my-5">
         <div className="container">
           <div className="row">
@@ -38,18 +37,16 @@ export const Home = () => {
               >
                 <h4 className="text-center">kids</h4>
                 <span></span>
-
               </div>
             </div>
           </div>
         </div>
       </div>
-
       <Countdown />
-      <FeaturedProducts/>
-      <Blog/>
-      <Orders/>
-      <Brands/>
+      <FeaturedProducts />
+      <Blog />
+      <Orders />
+      <Brands />
     </>
   );
 };

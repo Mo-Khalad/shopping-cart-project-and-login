@@ -4,9 +4,20 @@ import Button from "../Ui/Button.jsx";
 import { useValidation } from "../../Hook/useValidation.js";
 import { useHttp } from "../../Hook/usehttp.js";
 import { DisplayContext } from "../../Store/DisplayContext.js";
-const Register = ({ open , nameRegex , emailRegex , passwordRegex , ageRegex }) => {
+import { useNavigate } from "react-router-dom";
+const Register = ({
+  nameRegex,
+  emailRegex,
+  passwordRegex,
+  ageRegex,
+  rePasswordRegex,
+}) => {
+  console.log("re");
+
   const [errorMessage, setErrorMessage] = useState(false);
-  const DisplayCrx =useContext(DisplayContext)
+  const DisplayCrx = useContext(DisplayContext);
+  const [rePasswordError, setRePasswordError] = useState(false);
+  const navigate = useNavigate();
   const formInputs = {
     name: "",
     email: "",
@@ -14,60 +25,57 @@ const Register = ({ open , nameRegex , emailRegex , passwordRegex , ageRegex }) 
     rePassword: "",
     phone: "",
   };
-  
+
   const { signInObject } = useValidation(formInputs);
-  const { data , sendRequest } = useHttp(
-    "https://ecommerce.routemisr.com/api/v1/auth/signup" ,
-    'post' ,
+
+  const { data, sendRequest, error } = useHttp(
+    "https://ecommerce.routemisr.com/api/v1/auth/signup",
+    "post",
   );
-console.log(formInputs);
 
   const name = nameRegex.test(signInObject.dataSign.name);
-  const rePassword = passwordRegex.test(signInObject.dataSign.rePassword);
   const email = emailRegex.test(signInObject.dataSign.email);
   const phone = ageRegex.test(signInObject.dataSign.phone);
-  const password = passwordRegex.test(
-    signInObject.dataSign.password
-  );
-console.log(data)
+  const password = passwordRegex.test(signInObject.dataSign.password);
+  const rePassword = rePasswordRegex.test(signInObject.dataSign.rePassword);
 
   useEffect(() => {
-    console.log(data?.message)
+    if (signInObject.dataSign.password !== signInObject.dataSign.rePassword) {
+      setRePasswordError(true);
+    } else setRePasswordError(false);
+  }, [signInObject.dataSign.password, signInObject.dataSign.rePassword]);
 
+  useEffect(() => {
     if (data?.message === "success") {
-      DisplayCrx.handlePageShow("login");
-      signInObject.dataSign.name = '' ;
-      signInObject.dataSign.rePassword = '' ;
-      signInObject.dataSign.email = "";
-      signInObject.dataSign.phone = "" ;
-      signInObject.dataSign.password = "";
-
+      navigate("./../login");
     }
-  }, [data , signInObject.dataSign , DisplayCrx]);
+  }, [data , navigate]);
 
-  const handleChange = (value, event) => {
+  const handleChange = (value, event) => {    
     setErrorMessage(false);
     signInObject.handleChange(value, event);
   };
-  const handleSubmit=(event)=>{
-    console.log(event);
-    
-    signInObject.handleSubmit(event);    
+
+  const handleSubmit = (event) => {
+    signInObject.handleSubmit(event);
     const formObjectData = new FormData(event.target);
     const customerData = Object.fromEntries(formObjectData.entries());
-    
-    ( email && password && phone && name && rePassword && ( data?.message!== 'success' )) && sendRequest(customerData);
-    DisplayCrx.showError();   
-    setErrorMessage(true)
-  }
-  
+
+    if (email && password && phone && name && rePassword) {
+      sendRequest(customerData);
+    } else {
+      DisplayCrx.showError();
+      setErrorMessage(true);
+    }
+  };
+
   return (
     <>
       <div
-        className={`coverLoginAndRegister flex-wrap w-100 ${open} justify-content-around align-items-center  `}
+        className={`coverLoginAndRegister d-flex flex-wrap w-100 justify-content-around align-items-center  `}
       >
-       <div className="cover"></div>
-       
+        <div className="cover"></div>
+
         <form
           onSubmit={handleSubmit}
           className={`coverFromLoginAndRegister d-flex flex-wrap rounded justify-content-center
@@ -87,18 +95,6 @@ console.log(data)
             error={"The name must start be at least three letters"}
             Regex={nameRegex}
             className="inputsFromLoginAndRegister"
-          />
-          <Inputs
-            className="inputsFromLoginAndRegister"
-            name="rePassword"
-            handleChange={(event) => handleChange("rePassword", event)}
-            type="text"
-            value={signInObject.dataSign.rePassword}
-            id="rePassword"
-            handleBlue={() => signInObject.handleBlue("rePassword")}
-            errorSign={signInObject.errorSign.rePassword}
-            error={"The name must start be at least three letters"}
-            Regex={passwordRegex}
           />
           <Inputs
             className="inputsFromLoginAndRegister"
@@ -143,22 +139,30 @@ console.log(data)
           {errorMessage && data?.message !== "success" && (
             <h2 className="errorLoginAndRegister"> {data?.message}</h2>
           )}
-          <Button className="sub-color bg-main">
-            register
-          </Button>
+
+          <Inputs
+            className="inputsFromLoginAndRegister"
+            name="rePassword"
+            handleChange={(event) => handleChange("rePassword", event)}
+            type="text"
+            value={signInObject.dataSign.rePassword}
+            id="rePassword"
+            handleBlue={() => signInObject.handleBlue("rePassword")}
+            errorSign={signInObject.errorSign.rePassword}
+            rePasswordError={rePasswordError}
+            error={"Passwords do not match"}
+            Regex={rePasswordRegex}
+          />
+          <Button className="sub-color bg-main px-5">register</Button>
+          <h2
+            className={`errorLoginAndRegister error-message text-center ${errorMessage ? "opacity-100" : "opacity-0"} `}
+          >
+            {" "}
+            {error?.message !== "fail" && error?.message}
+          </h2>
         </form>
       </div>
     </>
   );
 };
 export default Register;
-
-
-
-
-
-
-
-
-
-

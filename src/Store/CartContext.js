@@ -1,7 +1,7 @@
 import { createContext } from "react";
 export const CartContext =createContext({
    item:[] ,
-   addProduct:()=>{} ,
+   addProduct:()=>{},
    removeProducts:()=>{}, 
    removeAll:()=>{}
 })

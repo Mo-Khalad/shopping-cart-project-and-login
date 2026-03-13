@@ -2,19 +2,13 @@ import axios from "axios"
 import { useCallback , useEffect, useState } from "react"
 export const sendHttpRequest= async (url , config , method )=>{
     let response ='';
-    console.log( config);
 
 if(config === 'Get'){
-    console.log(response , 'p');
-
     response = await axios(url , method)
-    console.log(response , 'p');
 } 
 
 else if(config === 'post'){  
-    console.log(url , method);
     response=await axios.post(url , method) 
-    console.log(response);
 }
 else if(!response.ok){
       throw  new Error(response.message|| "error");
@@ -31,8 +25,8 @@ export const useHttp = (url , config ,initialData )=>{
          const resData= await sendHttpRequest(url  , config , method )
          setData(resData.data)
          
-     }catch(error){
-        setError(error.message || 'SomeThing went wrong!')
+     }catch(error){                        
+        setError(error?.response?.data || 'SomeThing went wrong!')
      }
    setIsLoading(false)
  } 

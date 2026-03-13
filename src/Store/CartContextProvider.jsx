@@ -43,8 +43,9 @@ const handleProductReducer = (state, action) => {
   }
 
 const CartContextProvider = ({ children }) => {
+  const item = JSON.parse(localStorage.getItem("items"))
   const [cart , dispatchCartAction] = useReducer(handleProductReducer, {
-    items: [],
+   items: item === null ? [] : item,
   });
   const addProduct = (item) => {
     dispatchCartAction({
@@ -58,7 +59,7 @@ const CartContextProvider = ({ children }) => {
       id: id,
     });
   };
-const removeAll =(id)=>{
+const removeAll =()=>{
   dispatchCartAction({
     type: "remove-all"
   });

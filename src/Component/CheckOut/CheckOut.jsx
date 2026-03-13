@@ -13,7 +13,7 @@ const CheckOut = () => {
   const { item } = useContext(CartContext);
   return (
     <> 
-      <Modal className="check-out" open={ DisplayCrx.pageShow === "checkOut"}>
+      <Modal className="check-out" open={DisplayCrx.modalShow === "checkOut"}>
         <h4 className="text-center sub-color my-2 fs-3">CheckOut</h4>
         <h3 className="fs-6 total-price position-absolute start-0 bottom-0">
           TotalPrice : $  { totalPriceProducts(item)}
@@ -66,14 +66,14 @@ const CheckOut = () => {
             <Button
               className={`${Style.btnSubmitOrder} main-color rounded-1 px-4`}
               type="button"
-              onClick={() => DisplayCrx.handlePageShow('')}
+              onClick={() => DisplayCrx.handleModalShow("")}
             >
               close
             </Button>
             <Button
               className={`${Style.btnSubmitOrder} main-color rounded-1 px-4`}
               type="button"
-              onClick={() => DisplayCrx.handlePageShow('')}
+              onClick={() => DisplayCrx.handleModalShow("")}
             >
               Submit Order
             </Button>

@@ -1,4 +1,81 @@
-import React from "react";
+import React, { useContext ,useEffect } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./App.css";
+import { Home } from "./pages/Home/Home.jsx";
+import Clothes from "./pages/Clothes/Clothes.jsx";
+import { About } from "./pages/About/About.jsx";
+import { Contact } from "./pages/Contact/Contact.jsx";
+import Cart from "./pages/Cart/Cart.jsx";
+import CheckOut from "./Component/CheckOut/CheckOut.jsx";
+import DetailsProducts from "./pages/DetailsProduct/DetailsProducts.jsx";
+import Login from "./Component/Login/Login.jsx";
+import Register from "./Component/Register/Register.jsx";
+import ProtectedRoute from "./Component/ProtectedRoute";
+import Layout from "./Component/Layout";
+import { TokenContext } from "./Store/TokenContext.js";
+import { CartContext } from "./Store/CartContext.js";
+
+const App = () => {
+  const nameRegex = /^[A-Za-z]{3}/;
+  const emailRegex = /@gmail.com/;
+  const ageRegex = /^[0-9]{11}/;
+  const passwordRegex = /^[A-Z0-9a-z]{4}/;
+  const rePasswordRegex = /^[A-Z0-9a-z]{4}/;    
+    
+  const TokenContextCrx = useContext(TokenContext);
+  const {item} = useContext(CartContext);
+
+
+ if(item.length !== 0){
+   localStorage.setItem("items", JSON.stringify(item));
+ }else localStorage.setItem("items", JSON.stringify([]));
+
+
+useEffect(()=>{
+  TokenContextCrx.setToken(JSON.parse(localStorage.getItem("token")))
+},[TokenContextCrx])
+
+  const router = createBrowserRouter([
+    {
+      path: "",
+      element: <Layout />,
+  //    errorElement: <NotFound />,
+      children: [
+        { path: "/", element: <ProtectedRoute> <Home /> </ProtectedRoute>},
+        { path:"/clothes" , element: <ProtectedRoute> <Clothes /> </ProtectedRoute>},
+        { path: "/clothes/product/:id", element: <ProtectedRoute> <DetailsProducts /> </ProtectedRoute>},
+        { path: "/about", element: <ProtectedRoute> <About /> </ProtectedRoute>},
+        { path: "/login", element: <ProtectedRoute> <Login 
+          passwordRegex={passwordRegex}
+          emailRegex={emailRegex}/> 
+          </ProtectedRoute>},
+        { path: "/register" , element:<ProtectedRoute>
+          <Register 
+          nameRegex={nameRegex}
+          passwordRegex={passwordRegex}
+          rePasswordRegex={rePasswordRegex}
+          emailRegex={emailRegex}
+          ageRegex={ageRegex}
+          />
+          </ProtectedRoute> },
+        { path: "/contact", element: <ProtectedRoute> <Contact />   </ProtectedRoute>},
+    ]}])
+  return (
+    <>
+        <RouterProvider router={router} />
+        <Cart/>
+        <CheckOut/>
+    </>
+  );
+};
+
+export default App;
+/*
+SiteNavbar />
+     
+
+      <Footer />
+      
 //import React, { useContext } from "react";
 /*import Cart from "./Component/Cart/Cart.jsx";
 import CheckOut from "./Component/CheckOut/CheckOut.jsx";
@@ -10,6 +87,7 @@ import DetailsProducts from "./Component/DetailsProduct/DetailsProducts.jsx";
 import MainContent from "./Component/MainContent/MainContent.jsx";
 import { DisplayContext } from "./Store/DisplayContext.js";
 */
+/*
 import './App.css'
 //import { Contact } from "./pages/Contact/Contact.jsx";
 import { About } from "./pages/About/About.jsx";
@@ -18,13 +96,7 @@ import { Home } from "./pages/Home/Home.jsx";
 
 const App = () => {
 /*
-  const { pageShow } = useContext(DisplayContext);
-  const nameRegex = /^[A-Za-z]{3}/;
-  const emailRegex = /@gmail.com/;
-  const ageRegex = /^[0-9]{11}/;
-  const passwordRegex = /^[A-Z0-9a-z]/;  
-
- const UserData = JSON.parse(localStorage.getItem("UserData"))
+ 
 
     /*   
   return (
@@ -67,35 +139,9 @@ const App = () => {
     </>
   );
 */
-
+/*
 return ( <>
-<nav className="nav navbar navbar-expand-lg pt-3">
-  <div className="container-fluid">
-    <p className="navbar-brand text-ligh" >Navbar</p>
-    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
-    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-        <li className="nav-item">
-          <p className="nav-link active text-ligh">Home</p>
-        </li>
-        <li className="nav-item">
-          <p className="nav-link text-ligh">Link</p>
-        </li>
-   
-        <li className="nav-item">
-          <p className="nav-link text-ligh">Disabled</p>
-        </li>
-      </ul>
 
-
-      <form className="d-flex" role="search">
-        <button className="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
-  </div>
-</nav>
 
 <Home/>
 
@@ -105,5 +151,5 @@ return ( <>
 };
 
 export default App;
-
+*/
 

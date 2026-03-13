@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import { CartContext } from "../../Store/CartContext";
-import Modal from "../Ui/Modal.jsx";
-import Button from "../Ui/Button.jsx";
+import { CartContext } from "../../Store/CartContext.js";
+import Modal from "../../Component/Ui/Modal.jsx";
+import Button from "../../Component/Ui/Button.jsx";
 import {
   currencyFormatter,
   totalPriceProduct,
@@ -13,7 +13,7 @@ const Cart = () => {
   const {item} = useContext(CartContext);
   const DisplayCrx = useContext(DisplayContext);
   const { addProduct , removeProducts } = useContext(CartContext);
-   
+  
   return (
     <Modal className="cart" open={DisplayCrx.modalShow === "cart"}>
       <h4 className="mb-5 fs-4 text-center sub-color">Your Cart</h4>
@@ -57,8 +57,11 @@ const Cart = () => {
                   <button
                     className={`${Style.iconButton} bg-sub rounded-circle 
                     border border-0 mx-3`}
-                    onClick={() => removeProducts(product.id)}
-                  >
+                    onClick={() =>{
+                       removeProducts(product.id)
+                      item.length === 1 && localStorage.removeItem("items")
+                    }
+                }>
                     <i className={`${Style.icon} minus fa-solid fa-minus`}></i>
                   </button>
                 </li>
@@ -70,10 +73,7 @@ const Cart = () => {
           <li>
             <Button
               className="main-color btnClose position-absolute top-0 start-0 ms-4"
-              onClick={() =>{ DisplayCrx.handlePageShow(DisplayCrx.pageShow)
-                DisplayCrx.handleModalShow('')
-              }
-            }
+              onClick={() => DisplayCrx.handleModalShow('') }
             >
               close
             </Button>
@@ -82,11 +82,7 @@ const Cart = () => {
           <li>
             <Button
               className="main-color btn-checkOut position-absolute top-0 end-0 me-4"
-              onClick={() => {
-                 DisplayCrx.handlePageShow("checkOut")
-                 DisplayCrx.handleModalShow('')
-
-              } }
+              onClick={() => DisplayCrx.handleModalShow("checkOut")}
             >
               check out
             </Button>

@@ -1,41 +1,41 @@
 import React, { useContext } from "react";
-import Style from "./MainContent.module.css";
+import { useNavigate } from "react-router-dom";
+import Style from "./Clothes.module.css";
 import { CartContext } from "../../Store/CartContext.js";
-import Button from "../Ui/Button.jsx";
+import Button from "../../Component/Ui/Button.jsx";
 import { useHttp } from "../../Hook/usehttp.js";
-import Error from "../Error/Error.jsx";
+import Error from "../../Component/Error/Error.jsx";
 import { currencyFormatter } from "../../Logic/logic.js";
-import { DisplayContext } from "../../Store/DisplayContext.js";
-const MainContent = () => {
+
+const Clothes = () => {
+  const navigate = useNavigate();
   const { addProduct } = useContext(CartContext);
-  const DisplayCrx = useContext(DisplayContext) ;
-  
-  const { data, isLoading , error } = useHttp(
-    "https://fakestoreapi.com/products", "Get" , []
-  )
-  const handleClickOnBtnDetails = (product, show) => {
-    DisplayCrx.getProductId(product);
-    DisplayCrx.handlePageShow(show);
+
+  const { data, isLoading, error } = useHttp(
+    "https://fakestoreapi.com/products",
+    "Get",
+    []
+  );
+  const handleClickDetails = (product) => {
+    navigate(`/clothes/product/${product.id}`);
   };
 
-  console.log(data);
-  
   return (
     <>
       {isLoading ? (
-        <h1
-          className={`${Style.loading} position-fixed d-flex justify-content-center align-items-center 
-          bg-main rounded-3 text-white w-100 h-100`}
-        >
+        <div className="d-flex justify-content-center align-items-center min-vh-100 bg-main text-white">
           Loading...
-        </h1>
+        </div>
       ) : (
         <>
           {error === undefined ? (
             <div className={`d-flex flex-wrap justify-content-center`}>
               {data.length !== 0 &&
                 data.map((product) => (
-                  <div className={`${Style.products} rounded-1 ps-2`} key={product.id}>
+                  <div
+                    className={`${Style.products} rounded-1 ps-2`}
+                    key={product.id}
+                  >
                     <img
                       src={product.image}
                       alt={product.title}
@@ -47,16 +47,13 @@ const MainContent = () => {
                     <p className="paragraph">{product.title}</p>
                     <Button
                       className={`${Style.btnBuy} text-white`}
-                      onClick={() => {
-                        addProduct(product)
-                      } }
+                      onClick={() => addProduct(product)}
                     >
                       buy
                     </Button>
                     <Button
                       className={Style.btnDetails}
-                      onClick={() => handleClickOnBtnDetails(product , "detailsProduct")
-                      }
+                      onClick={() => handleClickDetails(product)}
                     >
                       details
                     </Button>
@@ -71,4 +68,4 @@ const MainContent = () => {
     </>
   );
 };
-export default MainContent;
+export default Clothes;

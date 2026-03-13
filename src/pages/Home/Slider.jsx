@@ -14,9 +14,8 @@ export default function Slider() {
       spaceBetween={10}
       slidesPerView={1}
       navigation
-    //  pagination={{ clickable: true }}
       autoplay={{ delay: 3000, disableOnInteraction: false }}
-      loop 
+      loop
     >
       <SwiperSlide
         className={`${style.slider1} animate__animated animate__fadeInUp d-flex align-items-center`}
@@ -39,7 +38,11 @@ export default function Slider() {
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
                   do eiusmod tempor
                 </p>
-                <button className={`${style.shopNow_btn} animate__animated animate__fadeInUp animate__delay-1s py-2 rounded-1 px-4`}>Shop Now</button>
+                <button
+                  className={`${style.shopNow_btn} animate__animated animate__fadeInUp animate__delay-1s py-2 rounded-1 px-4`}
+                >
+                  Shop Now
+                </button>
               </div>
             </div>
           </div>
@@ -66,7 +69,11 @@ export default function Slider() {
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
                   do eiusmod tempor
                 </p>
-                <button className={`${style.shopNow_btn} animate__animated animate__fadeInUp animate__delay-1s py-2 rounded-1 px-4`}>Shop Now</button>
+                <button
+                  className={`${style.shopNow_btn} animate__animated animate__fadeInUp animate__delay-1s py-2 rounded-1 px-4`}
+                >
+                  Shop Now
+                </button>
               </div>
             </div>
           </div>

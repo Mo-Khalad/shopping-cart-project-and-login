@@ -1,8 +1,20 @@
 .navbar{
-  background-color: var(--sub-color) !important;
-  background-color: #00b69e !important;
-  height: 60px !important;
-  background-color:  #dbe6e4 !important;
+  min-height: 60px !important;
+  position:fixed !important;
+  z-index:9999990 !important;
+  left:0 !important;
+  right:0 !important ;
+  top:0 !important
+}
+.navbar-brand {
+  color: var(--main-color) !important;
+  font-weight: 900 !important;
+  font-size: 25px !important;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
+  text-transform: uppercase;
+}
+.bg-after-login{
+  background-color: #f3f3f3f8 !important;
 }
 .coverImage{
   background-image: url(./images/coverAbout.webp);
@@ -13,7 +25,6 @@
 .footer{
   background-color: #dbe6e4;
 }
-
 .texts{
   height: 100vh;
 }
