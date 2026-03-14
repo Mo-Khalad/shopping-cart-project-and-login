@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+<h1>Fashion Clothes </h1>
+<h4>Personal Project</h4>
+<p>A stylish and attractive clothing store compatible with all screens. Enjoy easy shopping and purchasing, along with identity verification. The website includes a homepage, an "About Us" page, a "Contact Us" page, a clothing section, a details page, a checkout page, and a shopping cart. It was developed using React, React Bootstrap, CSS, JS, Swiper and axios</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h3>Tools</h4>
+<h4>React , Js , React boostrap , Css , Axios , Swiper , Animate.css , Context , Route Api  (Auth ) , External Api</h4>
 
-## Available Scripts
+تصميم متجاوب لجميع أحجام الشاشات
 
-In the project directory, you can run:
+تصميم أنيق وجذاب مع سهولة التسوق والشراء
 
-### `npm start`
+يستخدم Axios للتفاعل مع واجهة برمجة التطبيقات (API)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+يستخدم Swiper للتفاعل مع شريط التمرير
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+يستخدم Animate.CSS للتفاعل مع الرسوم المتحركة
 
-### `npm test`
+يستخدم السياق لإدارة الحالات
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+يتم
+Responsive design for all screen sizes
 
-### `npm run build`
+Sleek and attractive design for an easy shopping and purchasing experience
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Uses Axios for API interaction
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Uses Swiper for scrollbar interaction
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Uses Animate.CSS for animation interaction
 
-### `npm run eject`
+Uses context for case management
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Data validation using regular expressions (regex)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Shopping cart uses local storage (localstore) for data storage
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Authentication system to enhance customer security
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+التحقق من صحة البيانات باستخدام التعابير النمطية (regex)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+سلة التسوق، وتستخدم التخزين المحلي (localstore) لتخزين البيانات
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+نظام المصادقة لتعزيز أمان العملاء
